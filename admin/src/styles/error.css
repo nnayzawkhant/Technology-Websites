@@ -1,0 +1,40 @@
+.error__container{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    gap: 2rem;
+}
+
+.error__container h1{
+    font-size: 170px;
+    font-weight: 900;
+    letter-spacing: 2rem;
+}
+
+.error__container p {
+    color: #54667a;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.error__container span {
+    color: #90a4ae;
+    font-size: 20px;
+}
+
+.error__container button{
+    margin: auto;
+    padding: 10px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #009efb;
+    cursor: pointer;
+    color: #fff;
+}
+
+.error__container button:hover{
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    
+}

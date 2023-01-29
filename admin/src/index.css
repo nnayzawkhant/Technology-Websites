@@ -68,3 +68,11 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.layout .dark{
+  background-color: #1a1a1a;
+}
+
+.layout .light{
+  background-color: #ffffff;
+}

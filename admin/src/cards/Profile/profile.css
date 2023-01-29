@@ -1,0 +1,115 @@
+
+  
+  .active__btn {
+    background: #b7ffe913;
+  }
+
+  .details__form {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 20px;
+    background: var(--primary-color);
+    width: 100%;
+  }
+  
+  .profile__title {
+    color: var(--heading-color);
+    font-weight: 500;
+    margin-bottom: 5px;
+    
+  }
+  
+  .profile__desc {
+    color: var(--small-text-color);
+    margin-bottom: 2rem;
+  }
+  
+  label {
+    color: var(--heading-color);
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+  
+  .form__group div {
+    display: flex;
+    flex-direction: column;
+    width: 47%;
+  }
+  
+  .form__group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .form__group div input {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 5px;
+    background: #ddd;
+    border: 1px solid #b7ffe913;
+    color: var(--heading-color);
+    font-size: 1rem;
+  }
+  
+  .form__group div input::placeholder {
+    color: var(--small-text-color);
+    font-size: 0.9rem;
+  }
+  
+  .form__group div input:focus {
+    outline: none;
+  }
+  
+  .profile-img__desc {
+    color: var(--small-text-color);
+    margin-bottom: 10px;
+  }
+  
+  .profile__img-btns {
+    display: flex;
+    flex-direction: row !important;
+    column-gap: 2.7rem;
+  }
+  
+  .dlt__btn,
+  .update__btn {
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    margin: auto;
+    color: #ccc;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 10px 20px;
+  }
+  
+  .update__btn {
+    color: var(--secondary-color);
+  }
+
+  .form__label{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    
+  }
+
+  .logo{
+    display: flex;
+    justify-content: center;
+    padding:30px  20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 5px;
+    border: 0;
+  }
+  
+  .logo img{
+    width: 100px;
+    height: 100px;
+  }
+
+  .hidden {
+    display: none;
+  }

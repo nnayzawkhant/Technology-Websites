@@ -1,0 +1,38 @@
+.settings {
+    /* background-color: #fff; */
+    margin-right: 10px;
+  }
+  
+  .settings__wrapper {
+    width: 100%;
+    border-radius: 5px;
+    /* background: var(--primary-color); */
+    display: flex;
+    gap: 2rem;
+
+  }
+  
+  .settings__title {
+    margin-bottom: 2rem;
+  }
+  
+  .settings__top {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    text-align: left;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 20px;
+    background: var(--primary-color);
+  }
+  
+  .setting__btn {
+    border: none;
+    padding: 7px 25px;
+    background: transparent;
+    border-radius: 5px;
+    color: var(--heading-color);
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 500;
+  }

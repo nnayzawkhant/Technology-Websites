@@ -1,0 +1,38 @@
+.swiper__wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #161616;
+    padding: 40px !important;
+}
+
+.single__swiper{
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.single__swiper img{
+    cursor: pointer;
+    height: 100px;
+    width: 100%;
+}
+
+.single__swiper a{
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.single__swiper a:hover{
+    text-decoration: underline;
+}
+
+
+.swiper__icon{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: smaller;
+    color: #828080;
+}

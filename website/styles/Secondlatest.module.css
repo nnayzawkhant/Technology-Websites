@@ -1,0 +1,156 @@
+.secondlate__container{
+    display: flex;
+    flex-direction: column;
+    background-color: #262626;
+    padding: 20px 0;
+  }
+
+.secondlate__wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #262626;
+    justify-content: center;
+}
+
+.secondlate__wrapper > div{
+    width: 380px;
+    margin: 10px;
+    text-align: left;
+    line-height: 30px;
+    color: #fff;
+}
+
+
+
+
+.secondlate__card{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding:20px 40px;
+    gap: 2rem;
+    background-color: #262626;
+}
+
+.secondlate__card .secondlate__img {
+    position: relative;
+    width: 300px;
+    height: 200px;
+}
+
+.secondlate__card .secondlate__img img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.secondlate__card .secondlate__img::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    width: 270px;
+    height: 205px;
+    opacity: 0.8;
+    background-color: rgb(234, 18, 18);
+}
+
+.secondlate__card .secondlate__img::after {
+    content: '';
+    position: absolute;
+    left: 22px;
+    width: 258px;
+    height: 209px;
+    opacity: 0.6;
+    background-color: rgb(234, 18, 18);
+}
+
+.secondlate__late{
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+
+.secondlate__late p{
+    color: #ccc;
+    font-size: 14px;
+    line-height: 26px;
+}
+
+
+
+
+.span__doc{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+.span__doc .span__under{
+    width: 10px;
+    height: 10px;
+    background-color: rgb(234, 18, 18);
+}
+
+.secondlate__late a h2{
+    color: #fff;
+    /* font-size: 30px; */
+}
+
+.secondlate__late a h2:hover{
+    text-decoration: underline;
+}
+
+.secondlate__main{
+    display: flex;
+    justify-content: space-between;
+}
+
+.secondlate__little {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.secondlate__icon{
+    display: flex;
+    align-items: center;
+    color: #9f9f9f;
+    gap: 0.4rem;
+}
+
+
+.secondlate__little img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.secondlate__little span{
+    font-size: 14px;
+    color: #9f9f9f;
+}
+
+.secondlate__span{
+    font-weight: bold;
+    color: #9f9f9f;
+}
+
+.secondlate__main a{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #9f9f9f;
+}
+
+.secondlate__button{
+    margin:0 40px;
+    border: 1px solid #9f9f9f;
+    background-color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+}

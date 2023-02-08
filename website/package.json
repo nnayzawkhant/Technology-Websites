@@ -6,8 +6,15 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "latest",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.6",
+    "@nextui-org/react": "^1.0.0-beta.12",
+    "jodit-react": "^1.3.32",
+    "next": "^13.1.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "swiper": "^9.0.1"
   }
 }

@@ -79,7 +79,6 @@ const Users = () => {
  
   return (
     <div>
-      <h1>USERS</h1>
       <Outlet/>
     </div>
   )

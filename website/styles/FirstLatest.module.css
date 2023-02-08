@@ -1,0 +1,136 @@
+.firstlatest__container{
+    display: flex;
+    flex-direction: column;
+    background-color: #262626;
+    padding: 20px;
+}
+
+.firstlatest__card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px 40px;
+    gap: 2rem;
+    background-color: #262626;
+}
+
+.firstlatest__card .first__img {
+    width: 700px;
+    height: 200px;
+    position: relative;
+}
+
+.firstlatest__card .first__img img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.firstlatest__card .first__img::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    width: 270px;
+    height: 205px;
+    opacity: 0.8;
+    background-color: rgb(234, 18, 18);
+}
+
+.firstlatest__card .first__img::after {
+    content: '';
+    position: absolute;
+    left: 26px;
+    width: 258px;
+    height: 209px;
+    opacity: 0.6;
+    background-color: rgb(234, 18, 18);
+}
+
+.first__late{
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+
+.first__late p{
+    color: #ccc;
+    font-size: 14px;
+    line-height: 26px;
+}
+
+
+
+
+.span__doc{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+.span__doc .span__under{
+    width: 10px;
+    height: 10px;
+    background-color: rgb(234, 18, 18);
+}
+
+.first__late a h2{
+    color: #fff;
+}
+
+.first__late a h2:hover{
+    text-decoration: underline;
+}
+
+.first__main{
+    display: flex;
+    justify-content: space-between;
+}
+
+.first__little {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.first__icon{
+    display: flex;
+    align-items: center;
+    color: #9f9f9f;
+    gap: 0.4rem;
+}
+
+
+.first__little img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.first__little span{
+    font-size: 14px;
+    color: #9f9f9f;
+}
+
+.first__span{
+    font-weight: bold;
+    color: #9f9f9f;
+}
+
+.first__main a{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #9f9f9f;
+}
+
+.firstlate__button{
+    margin:0 40px;
+    border: 1px solid #9f9f9f;
+    background-color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+}

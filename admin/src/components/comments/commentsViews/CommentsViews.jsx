@@ -14,7 +14,7 @@ const CommentsViews = () => {
     <div>
         <div className='posts__header'>
             <h2>Posts Details</h2>
-            <button onClick={handleClick}>Add Post</button>
+            <button onClick={handleClick}>Add Comment</button>
         </div>
       <table>
         <tr>

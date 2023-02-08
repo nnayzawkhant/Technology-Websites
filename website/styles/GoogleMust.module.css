@@ -1,0 +1,38 @@
+.google__swiper{
+    position: relative;
+    width: 100%;
+}
+
+.googlemust__container{
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    padding: 30px;
+}
+
+.google__main{
+    position: absolute;
+    top: 90px;
+    padding: 10px;
+    color: #ccc;
+}
+
+.google__rain{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.google__profile{
+    display: flex;
+    align-items: center;
+}
+
+.google__time{
+    display: flex;
+    align-items: center;
+}
+
+.google__main span{
+    font-size: 11px;
+}

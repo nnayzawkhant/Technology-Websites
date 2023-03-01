@@ -1,30 +1,36 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
+const { roles } = require('../config/roles');
 
 const postSchema = mongoose.Schema(
   {
     title: {
         type: String,
-        required: true,
-        unique: true,
     },
     desc: {
         type: String,
-        required: true,
     },
     photo: {
         type: String,
         required: false,
+
     },
     userId: {
-        type: String,
-        required: true,
-      },
-    categories: {
-        type: Array,
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User',
         required: false,
-        default: [],
+      },
+    category: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Category',
+        required: false, 
     },
+    viewcounts: {
+        type : String
+    },
+    // category: {
+    //     type: String,
+    // }
 },{
     timestamps: true,
   }

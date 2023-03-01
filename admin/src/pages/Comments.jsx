@@ -5,7 +5,7 @@ const Comments = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    navigate('/comments/commentsviews', { replace : true })
+    navigate('/admin/comments/commentsviews', { replace : true })
   }, [])
   return (
     <div>

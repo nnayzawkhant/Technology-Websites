@@ -1,9 +1,12 @@
+.main-dashboard{
+    margin-top: 20px;
+}
+
 
 .dashboard__wrapper {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-top: 5px;
   }
 
 .dashboard__container {
@@ -37,3 +40,52 @@ box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
     display: flex;
     justify-content: space-between;
 }
+
+.page__btn{
+    padding: 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn_pag{
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.page__span{
+    color: #6c757d;
+}
+
+
+
+.search_box{
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    background-color: #f2f7f8;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+  }
+  
+  .search_box input::placeholder{
+    font-size: 14px;
+  }
+  
+  .search_box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 1px;
+    font-size: 12px;
+    width: 200px;
+  }
+  
+  .search_box .search_box_icon{
+    color: #adb5bd;
+    cursor: pointer;
+  }

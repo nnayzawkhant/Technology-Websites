@@ -1,8 +1,10 @@
 
 .main__users{
-  margin-top: 40px;
+  margin-top: 30px;
+  background-color: #fff;
+  padding: 20px;
 }
-
+/*
 .form__text div {
     display: flex;
     flex-direction: column;
@@ -36,3 +38,160 @@
   .form__text div input:focus {
     outline: none;
   }
+
+  .photo{
+    padding: 8px;
+    margin-top: 20px;
+}
+
+.photoImg{
+    width: 100px;
+    height: 100px;
+}
+
+.text-area textarea {
+    width: 500px;
+    padding: 8px 20px;
+    border-radius: 5px;
+    background: #f1f1f1;
+    border: 1px solid #ccc;
+    color: var(--heading-color);
+    font-size: 1rem;
+    resize: none;
+
+  }
+  
+textarea:focus {
+    outline: none;
+}
+
+.postBtn{
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #fff;
+}
+
+
+.alert-error{
+  color: red;
+}
+
+
+.form__card div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+
+}
+
+.form__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form__card div input {
+  width: 100%;
+  padding: 8px 20px;
+  border-radius: 5px;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  color: var(--heading-color);
+  font-size: 1rem;
+}
+
+.form__card div input::placeholder {
+  color: var(--small-text-color);
+  font-size: 12px;
+}
+
+.form__card div input:focus {
+  outline: none;
+}
+
+.profile-img-card {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+
+.post__Btn{
+  margin: auto;
+  width: 100px;
+  height: 100px;
+  border: 1px dotted #ccc;
+  border-radius: 50%;
+
+}
+
+.photo__Img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: auto;
+}
+.btn__pf{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile__btn{
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  background-color: rgb(69, 145, 237);
+  border-radius: 3px;
+  cursor: pointer;
+  color: #f1f1f1;
+}
+
+.span__gp{
+  display: flex;
+  font-size: 13px;
+  color: gray;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.span__gp span{
+  color: rgb(69, 145, 237);
+  cursor: pointer;
+} */
+
+
+.error{
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0;
+  font-size: 14px;
+  background-color: #f34646;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.img__use{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user__img{
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  transition: all 0.3s;
+}

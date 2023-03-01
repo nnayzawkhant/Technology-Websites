@@ -3,10 +3,19 @@ const { password, objectId } = require('./custom.validation');
 
 const createUser = {
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().custom(password),
-    name: Joi.string().required(),
-    role: Joi.string().required().valid('user', 'admin'),
+    email: Joi.string().required('email is required').email().messages({
+      "string.base": `"email" should be a type of 'text'`,
+      "string.empty": `"email" cannot be an empty field`,
+      "any.required": `"email" is a required.`,
+    }),
+    password: Joi.string().required('password is required').custom(password),
+    name: Joi.string().alphanum().min(3).max(30).required().messages({
+      "string.base": `"name" should be a type of 'text'`,
+      "string.empty": `"name" cannot be an empty field`,
+      "any.required": `"name" is a required.`,
+    }),
+    role: Joi.string().valid('user', 'admin'),
+    profilePic: Joi.string().required('profilePic is required')
   }),
 };
 
@@ -35,6 +44,7 @@ const updateUser = {
       email: Joi.string().email(),
       password: Joi.string().custom(password),
       name: Joi.string(),
+      profilePic: Joi.string()
     })
     .min(1),
 };

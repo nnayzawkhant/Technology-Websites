@@ -8,10 +8,10 @@ const CommentsViews = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/comments/commentsadds')
+        navigate('/admin/comments/commentsadds')
     }
   return (
-    <div>
+    <div className='main'>
         <div className='posts__header'>
             <h2>Posts Details</h2>
             <button onClick={handleClick}>Add Comment</button>

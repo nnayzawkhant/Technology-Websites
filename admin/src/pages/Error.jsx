@@ -8,7 +8,7 @@ const Error = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/')
+    navigate('/admin/dashboard')
   }
   return (
     <div className='error__container'>

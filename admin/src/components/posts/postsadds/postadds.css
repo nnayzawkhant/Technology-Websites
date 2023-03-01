@@ -1,0 +1,52 @@
+.photo{
+    padding: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.photoImg{
+    width: 100px;
+    height: 100px;
+}
+
+.text-area textarea {
+    width: 500px;
+    padding: 8px 20px;
+    border-radius: 5px;
+    background: #f1f1f1;
+    border: 1px solid #ccc;
+    color: var(--heading-color);
+    font-size: 1rem;
+    resize: none;
+
+  }
+  
+textarea:focus {
+    outline: none;
+}
+
+.postBtn{
+    margin: auto;
+    padding: 20px;
+    background-color: #f5f4f4;
+    border: 1px solid #fff;
+}
+
+select{
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    background: #f5f4f4;
+    border: 1px solid #eae9e9;
+    border-radius: 5px;
+    color: gray;
+}
+
+.quill{
+    height: 120px;
+    margin-bottom: 30px;
+}
+
+.posts__adds-btn button{
+ margin: 10px;
+}

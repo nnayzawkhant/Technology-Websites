@@ -1,85 +1,110 @@
-// import { Box } from "@mui/material";
-// import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-// import { usersDatas } from "../data/usersDatas";
-// import { useTheme } from "@mui/material";
+import React, { useEffect } from 'react';
 
-// const Users = () => {
-//   const theme = useTheme();
-//   // const colors = tokens(theme.palette.mode);
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useState } from 'react';
+import axios from 'axios';
+import { axiosAuth } from '../config/axios';
+
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import SearchIcon from '@mui/icons-material/Search';
+import { API_URLS } from '../config/url';
 
 
 
-//   const columns = [
-//     { field: "id", headerName: "ID", flex: 0.5 },
-//     { field: "registrarId", headerName: "Registrar ID" },
-//     {
-//       field: "name",
-//       headerName: "Name",
-//       flex: 1,
-//       cellClassName: "name-column--cell",
-//     },
-//     {
-//       field: "email",
-//       headerName: "Email",
-//       flex: 1,
-//     },
-//   ];
-
-//   return (
-//     <Box 
-//       m="20px"
-//     >
-//       <h1>Users</h1>
-//       <Box
-//         m="40px 0 0 0"
-//         height="70vh"
-//         sx={{
-//           "& .MuiDataGrid-root": {
-//             border: "none",
-//           },
-//           "& .MuiDataGrid-cell": {
-//             borderBottom: "none",
-//             backgroundColor : '#fff',
-//             color : '#6c757d'
-//           },
-//           "& .MuiDataGrid-columnHeaders": {
-//             backgroundColor: '#009efb',
-//             borderBottom: "none",
-//           },
-//           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-//             color: '#6c757d',
-//           },
-//           "& .MuiDataGrid-footerContainer": {
-//             display : 'none'
-//           },
-//         }}
-//       >
-//         <DataGrid
-//           rows={usersDatas}
-//           columns={columns}
-//           components={{ Toolbar: GridToolbar }}
-//         />
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// export default Users;
-
-import React, { useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
 
 const Users = () => {
-  const navigate = useNavigate()
+    const [users, setUsers] = useState([]);
+    const [page, setPage] = useState(1);
+    const [query, setQuery] = useState("")
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    navigate('/users/usersviews', { replace : true })
-  }, [])
- 
+    useEffect(() => {
+        loadUsers();
+    }, [page, query]);
+
+    const loadUsers = async () => {
+        let param = `users?sortBy=_id:desc&page=${page}&limit=4`
+        if(query){
+            param += `&name=${query}`
+        }
+        const result = await (await axiosAuth().get(API_URLS + param)).data;
+        setPage(result?.page);
+        setUsers(result);
+    };
+
+    const deleteUser = async (id) => {
+         await (await axiosAuth().delete(API_URLS + `users/${id}`)).data;
+         loadUsers(page)
+    }
+
+    const handleClick = () => {
+        navigate('/admin/users/usersadds')
+    }
+
+    const searchInput =  (e) => {
+        setPage(1)
+        setQuery(e.target.value)
+    }
+
+    const handleNext = () => {
+      
+        setPage(page + 1)
+      }
+    
+    const handlePrev = () => {
+        setPage(page - 1)
+    }
+
+
+
   return (
-    <div>
-      <Outlet/>
+    <div className='main'>
+        <h2>Users</h2>
+        <div className='posts__header'>
+            <div className='search_box'>
+                
+                <input type='text' placeholder='Search...' value={query} onChange={searchInput}/>
+                <SearchIcon className='search_box_icon'/>
+            </div>
+            <button onClick={handleClick}>Add users</button>
+        </div>
+      <table>
+        <tr>
+            <th>UserName</th>
+            <th>ProfilePic</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        {
+            users?.results?.map((item, i) => {
+                return (
+                    <tr key={i}>
+                        <td>{item.name}</td>
+                        <td><img src={item.profilePic}/></td>
+                        <td>
+                            {item.email}
+                        </td>
+                        <td>
+                            <div className='post__icon'>
+                                <Link to={`/admin/users/usersedit/${item.id}`}>
+                                    <EditIcon className='edit'/>
+                                </Link>
+                                <DeleteIcon onClick={() => deleteUser(item.id)} className='delete'/>
+                            </div>
+                        </td>
+                    </tr>
+                )
+            })
+        }
+    </table>
+        <div className='page__btn'>
+            <button className='btn_pag' disabled={1 >= page} onClick={() => handlePrev()}><KeyboardArrowLeftIcon/></button>
+            <span className='page__span'>{users.page}/{users.totalPages}</span>
+            <button className='btn_pag' disabled={users?.totalPages <= page} onClick={() => handleNext()}><KeyboardArrowRightIcon/></button>
+        </div>
     </div>
   )
 }

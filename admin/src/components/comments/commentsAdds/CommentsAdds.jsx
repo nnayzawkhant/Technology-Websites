@@ -11,7 +11,7 @@ const CommentsAdds = () => {
   const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/comments/commentsadds');
+        navigate('/admin/comments/commentsadds');
     }
     
   return (

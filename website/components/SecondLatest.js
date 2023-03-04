@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Secondlatest.module.css';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import { secondLatestDatas } from '../pages/secondLatestDatas';
+import {format} from "timeago.js";
+import axios from 'axios';
 
 
 const SecondLatest = () => {
     const [visiable, setVisiable] = useState(4);
+
+    const [allPosts, setAllPosts] = useState([]);
+
+    useEffect(() => {
+        fetchAllPosts()
+    }, [])
+
+    const fetchAllPosts = async () => {
+        const fetch = await (await axios.get('http://localhost:5000/v1/posts/public/latest_posts/?sortBy=_id:desc')).data;
+        console.log(fetch)
+        setAllPosts(fetch)
+    }
 
     const showMoreItems = () => {
         setVisiable(prev => prev + 2);
@@ -15,26 +29,26 @@ const SecondLatest = () => {
     <div className={styles.secondlate__container}>
         <div className={styles.secondlate__wrapper}>
             {
-                secondLatestDatas.slice(0, visiable).map((item, i) => {
+                allPosts.results?.slice(0, visiable).map((item, i) => {
                     return (
                         <div className={styles.secondlate__card} key={i}>
-                            <a href='#' className={styles.secondlate__img}><img src={item.imgone}/></a>
+                            <a href='#' className={styles.secondlate__img}><img src={item.photo}/></a>
                             <div className={styles.secondlate__late}>
                                 <div className={styles.span__doc}>
                                     <div className={styles.span__under}></div>
-                                    <span className={styles.secondlate__span}>{item.type}</span>
+                                    <span className={styles.secondlate__span}>{item.category.categoryname}</span>
                                 </div>
-                                <a href='#'><h2>{item.desc}</h2></a>
+                                <a href='#'><h2>{item.title}</h2></a>
                                 <div className={styles.secondlate__main}>
                                     <div className={styles.secondlate__little}>
-                                        <img src={item.imagetwo}/>
-                                        <span>{item.name}</span>
+                                        <img src={item.user?.profilePic}/>
+                                        <span>{item.user?.name}</span>
                                         <div className={styles.secondlate__icon}>
-                                            {item.icon}
-                                            <span>{item.time}</span>
+                                            <AccessTimeIcon fontSize='smaller'/>
+                                            <span>{format(item.createdAt)}</span>
                                         </div>
                                     </div>
-                                    <a href='#'>{item.largeicon}<span>{item.comment}</span></a>
+                                    
                                 </div>
                             </div>
                         </div>

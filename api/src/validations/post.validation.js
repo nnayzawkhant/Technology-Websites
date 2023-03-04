@@ -7,12 +7,14 @@ const createPost = {
     photo: Joi.string().required(),
     desc: Joi.string().required(),
     category: Joi.string().required(),
+    user: Joi.string()
   }),
 };
 
 const getPosts = {
   query: Joi.object().keys({
     title: Joi.string(),
+    category: Joi.string(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
@@ -35,6 +37,7 @@ const updatePost = {
         photo: Joi.string().required(),
         desc: Joi.string().required(),
         category: Joi.string().required(),
+        user: Joi.string(),
         id: Joi.string()
     })
     .min(1),
@@ -46,10 +49,28 @@ const deletePost = {
   }),
 };
 
+const getLatestPosts = {
+  query: Joi.object().keys({
+    title: Joi.string(),
+    category: Joi.string(),
+    sortBy: Joi.string(),
+    limit: Joi.number().integer(),
+    page: Joi.number().integer(),
+  }),
+};
+
+const getLatestPost = {
+  params: Joi.object().keys({
+    postId: Joi.string().custom(objectId),
+  }),
+};
+
 module.exports = {
   createPost,
   getPosts,
   getPost,
   updatePost,
   deletePost,
+  getLatestPosts,
+  getLatestPost
 };

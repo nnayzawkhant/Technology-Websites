@@ -9,7 +9,7 @@ const router = express.Router();
 router
   .route('/')
   .post(auth('manageUsers'),validate(postValidation.createPost), postController.createPost)
-  .get(auth('getUsers'), validate(postValidation.getPosts), postController.getPosts);
+  .get(auth('getUsers'), validate(postValidation.getPosts), postController.getPosts)
 
 
 router
@@ -21,6 +21,10 @@ router
 router
   .route('/public/latest_posts')
   .get(postController.getLatestPosts);
+
+router
+  .route('/public/latest_posts/:postId')
+  .get( postController.getLatestPost);
 
 module.exports = router;
 

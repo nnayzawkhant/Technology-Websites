@@ -41,11 +41,20 @@ const getLatestUsers = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getLatestUser = catchAsync(async (req, res) => {
+  const user = await userService.getLatestUserById(req.params.userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  res.send(user);
+});
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
-  getLatestUsers
+  getLatestUsers,
+  getLatestUser
 };

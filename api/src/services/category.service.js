@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Category } = require('../models');
+const { Category, Post } = require('../models');
 
 /**
  * Create a user
@@ -74,11 +74,40 @@ const latestCategories = async (filter, options) => {
   return categories;
 };
 
+/**
+ * Update Number of Posts
+ * @param {ObjectId} categoryId
+ * @param {Object} numberOfPosts
+ * @returns {Promise<Category>}
+ */
+const updateNumberOfPosts = async (categoryId) => {
+  const category = await getCategoryById(categoryId);
+  if (!category) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
+  }
+
+  let numPosts = await Post.count({ category: categoryId });
+  Object.assign(category, {numberOfPosts: numPosts});
+  await category.save();
+  return category;
+};
+
+/**
+ * Get user by id
+ * @param {ObjectId} id
+ * @returns {Promise<Post>}
+ */
+const getLatestCategoryById = async (id) => {
+  return Category.findById(id);
+};
+
 module.exports = {
   createCategory,
   queryCategories,
   getCategoryById,
   updateCategoryById,
   deleteCategoryById,
-  latestCategories
+  latestCategories,
+  updateNumberOfPosts,
+  getLatestCategoryById
 };

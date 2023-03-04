@@ -11,6 +11,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import SearchIcon from '@mui/icons-material/Search';
 import { API_URLS } from '../config/url';
+import {format} from "timeago.js";
 
 
 
@@ -76,6 +77,7 @@ const Users = () => {
             <th>UserName</th>
             <th>ProfilePic</th>
             <th>Email</th>
+            <th>Date</th>
             <th>Action</th>
         </tr>
         {
@@ -86,6 +88,9 @@ const Users = () => {
                         <td><img src={item.profilePic}/></td>
                         <td>
                             {item.email}
+                        </td>
+                        <td>
+                            {format(item.createdAt)}
                         </td>
                         <td>
                             <div className='post__icon'>

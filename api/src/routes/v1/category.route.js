@@ -21,6 +21,10 @@ router
   .route('/public/latest_categories')
   .get(categoryController.getLatestCategories);
 
+router
+  .route('/public/latest_categories/:categoryId')
+  .get(categoryController.getLatestCategory);
+
 module.exports = router;
 
 

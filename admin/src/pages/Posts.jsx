@@ -10,6 +10,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import SearchIcon from '@mui/icons-material/Search';
 import { API_URLS } from '../config/url';
+import {format} from "timeago.js";
 
 const Posts = () => {
     const [posts, setPosts] = useState([]);
@@ -42,10 +43,10 @@ const Posts = () => {
 
 
 
-        const searchInput =  (e) => {
-            setPage(1)
-            setQuery(e.target.value)
-        }
+    const searchInput =  (e) => {
+        setPage(1)
+        setQuery(e.target.value);
+    }
         
       
 
@@ -81,6 +82,7 @@ const Posts = () => {
             <th>Title</th>
             <th>Image</th>
             <th>Categories</th>
+            <th>Date</th>
             <th>Action</th>
         </tr>
         {
@@ -92,6 +94,10 @@ const Posts = () => {
                         <td>
                             {item.category.categoryname}
                         </td>
+                        
+                        <td>
+                        {format(item.createdAt)}
+                        </td>
                         <td>
                             <div className='post__icon'>
                                 <Link to={`/admin/posts/postsedits/${item.id}`}>
@@ -100,7 +106,9 @@ const Posts = () => {
                                 <DeleteIcon onClick={() => deletePost(item.id)} className='delete'/>
                             </div>
                         </td>
+                       
                     </tr>
+                    
                 )
             })
         }

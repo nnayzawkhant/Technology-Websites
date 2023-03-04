@@ -1,11 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/FirstLatest.module.css';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import { firstLatestDatas } from '../pages/firstLatestDatas';
+import {format} from "timeago.js";
+import axios from 'axios';
+
 
 const FirstLatest = () => {
     const [visiable, setVisiable] = useState(3);
+
+    const [allPosts, setAllPosts] = useState([]);
+
+    useEffect(() => {
+        fetchAllPosts()
+    }, [])
+
+    const fetchAllPosts = async () => {
+        const fetch = await (await axios.get('http://localhost:5000/v1/posts/public/latest_posts/?sortBy=_id:desc')).data;
+        console.log(fetch)
+        setAllPosts(fetch)
+    }
+
+    
 
     const showMoreItems = () => {
         setVisiable(prev => prev + 3);
@@ -13,28 +30,29 @@ const FirstLatest = () => {
   return (
     <div className={styles.firstlatest__container}>
         {
-            firstLatestDatas.slice(0, visiable).map((item, i) => {
+            allPosts?.results?.slice(0, visiable).map((item, i) => {
                 return (
                     <div className={styles.firstlatest__card} key={i}>
-                        <a href='#' className={styles.first__img}><img src={item.imgone}/></a>
+                        <a href={`details/${item.id}`} className={styles.first__img}><img src={item.photo}/></a>
                         <div className={styles.first__late}>
                             <div className={styles.span__doc}>
                                 <div className={styles.span__under}></div>
-                                <span className={styles.first__span}>{item.type}</span>
+                                <span className={styles.first__span}>{item.category.categoryname}</span>
                             </div>
-                            <a href='#'><h2>{item.desc}</h2></a>
+                            <a href='#'><h2>{item.title}</h2></a>
                             <div className={styles.first__main}>
                                 <div className={styles.first__little}>
-                                    <img src={item.imagetwo}/>
-                                    <span>{item.name}</span>
+                                    <img src={item.user?.profilePic}/>
+                                    <span>{item.user?.name}</span>
                                     <div className={styles.first__icon}>
-                                        {item.icon}
-                                        <span>{item.time}</span>
+                                        <AccessTimeIcon fontSize='smaller'/>
+                                        <span>{format(item.createdAt)}</span>
                                     </div>
                                 </div>
-                                <a href='#'>{item.largeicon}<span>{item.comment}</span></a>
                             </div>
-                            <p>{item.letter}</p>
+                            <div>
+                                <p dangerouslySetInnerHTML={{ __html: item.desc.slice(0, 150)}} />
+                            </div>
                         </div>
                     </div>
                 )

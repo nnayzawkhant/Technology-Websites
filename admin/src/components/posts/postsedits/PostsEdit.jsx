@@ -117,13 +117,6 @@ const PostsEdit = () => {
                   />
               </div>
 
-              <div>
-                  <label>Date</label>
-                  <input 
-                      type="date" 
-                      placeholder="Enter Your Password" 
-                      />
-              </div>
               </div>
 
               <div className="form__text">
@@ -133,7 +126,7 @@ const PostsEdit = () => {
                   <select name="category" value={post?.category} onChange={(e) => onInputChange(e)}>
                     {
                       categories?.results?.map((cat, c) => (
-                        <option value={cat.categoryname} key={c}>{cat.categoryname}</option>
+                        <option value={cat.id} key={c}>{cat.categoryname}</option>
                       ))
                     }
                   </select>
@@ -150,7 +143,7 @@ const PostsEdit = () => {
               
               </div>
               <div className="text-area">
-                  <p>Description</p>
+                  <label>Description</label>
                   <ReactQuill
                     // value={post?.desc}
                     onChange={onDescriptionChange}

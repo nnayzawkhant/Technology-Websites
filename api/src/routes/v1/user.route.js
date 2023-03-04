@@ -21,6 +21,10 @@ router
   .route('/public/latest_users')
   .get(userController.getLatestUsers);
 
+router
+  .route('/public/latest_users/:userId')
+  .get(userController.getLatestUser);
+
 module.exports = router;
 
 /**

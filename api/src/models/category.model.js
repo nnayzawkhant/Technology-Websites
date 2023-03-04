@@ -6,6 +6,10 @@ var categorySchema = mongoose.Schema(
     categoryname: {
       type: String,
       required: true,
+    },
+    numberOfPosts: {
+      type: Number,
+      default: 0
     }
   },
   {

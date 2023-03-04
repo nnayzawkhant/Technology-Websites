@@ -93,6 +93,15 @@ const latestUsers = async (filter, options) => {
   return users;
 };
 
+/**
+ * Get user by id
+ * @param {ObjectId} id
+ * @returns {Promise<User>}
+ */
+const getLatestUserById = async (id) => {
+  return User.findById(id);
+};
+
 module.exports = {
   createUser,
   queryUsers,
@@ -100,5 +109,6 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   deleteUserById,
-  latestUsers
+  latestUsers,
+  getLatestUserById
 };

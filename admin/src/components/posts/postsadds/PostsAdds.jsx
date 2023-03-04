@@ -32,6 +32,7 @@ const PostsAdds = () => {
   const onDescriptionChange = (e) => {
     setPost({...post,desc: e})
   }
+  console.log(post.desc)
 
 
   const onSubmit = async (e) => {
@@ -104,13 +105,13 @@ const PostsAdds = () => {
                 />
             </div>
 
-            <div>
+            {/* <div>
                 <label>Date</label>
                 <input 
                     type="date" 
                     placeholder="Enter Your Password" 
                   />
-            </div>
+            </div> */}
             </div>
 
             <div className="form__text">
@@ -136,12 +137,8 @@ const PostsAdds = () => {
             
             </div>
             <div className="text-area">
-                <p>Description</p>
-                <ReactQuill
-                className="quill"
-                value={post?.desc}
-                onChange={onDescriptionChange}
-                />
+                <label>Description</label>
+                <ReactQuill className="quill" value={post?.desc} onChange={onDescriptionChange} />
             </div>
             {/* {err && (
               <div className="form-group">

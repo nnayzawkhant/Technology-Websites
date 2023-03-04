@@ -42,6 +42,14 @@ const getLatestCategories = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getLatestCategory = catchAsync(async (req, res) => {
+  const category = await categoryService.getCategoryById(req.params.categoryId);
+  if (!category) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Category not found !!');
+  }
+  res.send(category);
+});
+
 
 module.exports = {
   createCategory,
@@ -49,5 +57,6 @@ module.exports = {
   getCategory,
   updateCategory,
   deleteCategory,
-  getLatestCategories
+  getLatestCategories,
+  getLatestCategory
 };

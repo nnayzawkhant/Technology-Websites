@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styles from '../../styles/Details.module.css'
 import DetailsSwiper from '../../components/detailsSwiper';
 import HomeIcon from '@mui/icons-material/Home';
@@ -16,14 +16,16 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import RightLatest from '../../components/RightLatest';
-const Details = () => {
+import axios from 'axios';
+const Details = ({posts}) => {
+  console.log(posts)
   const [btnGroupShown, setBtnGroupShown] = useState(false);
 
   const btnShown = () => {
     setBtnGroupShown(prev => !prev);
   }
   return (
-    <div className={styles.details__wrapper}>
+    <div className={styles.details__wrapper} >
         <DetailsSwiper/>
         <div className={styles.details__container}>
           <div className={styles.details__left}>
@@ -37,7 +39,7 @@ const Details = () => {
               <div className={styles.details__pfgroup}>
                 <div className={styles.details__profile}>
                   <span>by</span>
-                  <img src='https://cdn.pixabay.com/photo/2015/11/26/00/14/woman-1063100__480.jpg'/>
+                  <img src={posts?.user?.profilePic}/>
                   <span>Salman on March 06, 2021</span>
                 </div>
                 <div className={styles.details__comment}>
@@ -80,19 +82,8 @@ const Details = () => {
                 </button>
               </div>
             </div>
-            <p>
-              You audience. Least, the recently his repeat the this avarice 
-              for the have and was on would before the concise bedding were hall politely 
-              name be regretting have of even five of it the his are there again. 
-              Word seven designer far lady problem will have work with you to fully understand your business to achieve.
-            </p>
-            <p>
-              We work with clients big and small across a range of sectors and we utilize all forms of media 
-              to get your name out there in a way that’s right for you. We believe that analysis of your 
-              company and your customers is key in responding effectively to your promotional needs and 
-              we will work with you.
-            </p>
-            <img src='https://cdn.pixabay.com/photo/2016/03/09/09/30/woman-1245817__480.jpg'/>
+              <p dangerouslySetInnerHTML={{ __html: posts.desc }} />
+            <img src={posts.photo}/>
             <p>
               We have a number of different teams within our agency that specialise in different areas of business so you can be sure that you won’t receive a generic service and although we can’t boast years and years of service we can ensure you that is a good thing in this industry.
             </p>
@@ -214,6 +205,27 @@ const Details = () => {
         </div>
     </div>
   )
-}
+};
+
+export const getServerSideProps = async ({params}) => {
+  const res = await (await axios.get(`http://localhost:5000/v1/posts/public/latest_posts/${params.id}`)).data;
+
+  let categoryId = await res.category
+  const singlePost = (await axios.get(`http://localhost:5000/v1/categories/public/latest_categories/${categoryId}`)).data
+
+  let userId = await res.user
+  const singleUser = (await axios.get(`http://localhost:5000/v1/users/public/latest_users/${userId}`)).data
+   
+  let finalRes = {...res, category: singlePost, user: singleUser}
+
+
+
+  return {
+      props: {
+          posts: finalRes,
+      },
+  }
+};
 
 export default Details;
+

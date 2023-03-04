@@ -8,7 +8,6 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Post>}
  */
 const createPost = async (postBody) => {
-  console.log(postBody)
   return Post.create(postBody);
 };
 
@@ -82,11 +81,23 @@ const latestPosts = async (filter, options) => {
   return posts;
 };
 
+/**
+ * Get post by id
+ * @param {ObjectId} id
+ * @returns {Promise<Post>}
+ */
+
+const getLatestPostById = async (id) => {
+  return Post.findById(id);
+  // return Post.where('id', id)
+};
+
 module.exports = {
   createPost,
   queryPosts,
   getPostById,
   updatePostById,
   deletePostById,
-  latestPosts
+  latestPosts,
+  getLatestPostById
 };

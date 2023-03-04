@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/NatureSwiper.module.css';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
@@ -11,8 +11,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { natureSwiperDatas } from '../pages/natureSwiperDatas';
+import axios from 'axios';
 
 const NatureSwiper = () => {
+    const [naturePosts, setNaturePosts] = useState([]);
+
+    const fetchNature = async () => {
+        const nature = await (await axios.get(''))
+    }
   return (
     <>
         <Swiper className={styles.swiper__wrapper}

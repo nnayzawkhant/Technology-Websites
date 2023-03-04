@@ -7,6 +7,7 @@ import { API_URLS } from '../config/url';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import SearchIcon from '@mui/icons-material/Search';
+import {format} from "timeago.js";
 
 const Category = () => {
     const [categories, setCategoris] = useState([]);
@@ -30,7 +31,7 @@ const Category = () => {
     };
 
     const deleteCategory = async (id) => {
-         await (await axiosAuth.delete(API_URLS + `categories/${id}`)).data;
+         await (await axiosAuth().delete(API_URLS + `categories/${id}`)).data;
          loadCategories(page)
     }
 
@@ -66,6 +67,8 @@ const Category = () => {
       <table>
         <tr>
             <th>Category</th>
+            <th>TotalPosts</th>
+            <th>Date</th>
             <th>Action</th>
         </tr>
         {
@@ -73,6 +76,10 @@ const Category = () => {
                 return (
                     <tr key={i}>
                         <td>{item.categoryname}</td>
+                        <td>{item.numberOfPosts}</td>
+                        <td>
+                            {format(item.createdAt)}
+                        </td>
                         <td>
                             <div className='post__icon'>
                                 <Link to={`/admin/categories/categoriesedit/${item.id}`}>

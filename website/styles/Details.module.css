@@ -168,6 +168,19 @@
     display: flex;
     gap: 1rem;
     color: #fff;
+    align-items: center;
+    justify-content: center;
+}
+
+.relate__card{
+    width: 300px;
+    height: 200px;
+
+}
+
+.relate__card img{
+    width: 100%;
+    height: 100%;
 }
 
 .comment__header{

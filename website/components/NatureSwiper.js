@@ -12,13 +12,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { natureSwiperDatas } from '../pages/natureSwiperDatas';
 import axios from 'axios';
+import Link from 'next/link';
+import Image from 'next/image';
 
-const NatureSwiper = () => {
-    const [naturePosts, setNaturePosts] = useState([]);
-
-    const fetchNature = async () => {
-        const nature = await (await axios.get(''))
-    }
+const NatureSwiper = ({categoriesPosts}) => {
+    console.log(categoriesPosts)
   return (
     <>
         <Swiper className={styles.swiper__wrapper}
@@ -30,15 +28,13 @@ const NatureSwiper = () => {
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}
         >
-        {natureSwiperDatas.map((item, i) => {
+        {categoriesPosts?.results?.map((item, i) => {
             return (
                     <SwiperSlide className={styles.single__swiper} key={i}>
-                        <img src={item.image}/>
-                        <a href='#'>{item.info}</a>
-                        <div className={styles.swiper__icon}>
-                            {item.icon}
-                            <span>{item.span}</span>
-                        </div>
+                        <Link href={`details/${item.id}`} passHref>
+                            <Image src={item.photo} width={500} height={500} alt=''/>
+                            <span>{item.title}</span>
+                        </Link>
                     </SwiperSlide>
             )
         })}

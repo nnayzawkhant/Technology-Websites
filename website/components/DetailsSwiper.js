@@ -10,8 +10,10 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { detailsSwiperDatas } from '../pages/detailsSwiperDatas';
+import Link from 'next/link';
+import Image from 'next/image';
 
-const DetailsSwiper = () => {
+const DetailsSwiper = ({cat}) => {
   return (
         <div>
           <Swiper className={styles.swiper__wrapper}
@@ -23,11 +25,14 @@ const DetailsSwiper = () => {
                 onSwiper={(swiper) => console.log(swiper)}
                 onSlideChange={() => console.log('slide change')}
             >
-            {detailsSwiperDatas.map((item, i) => {
+            {cat.map((item, i) => {
                 return (
                         <SwiperSlide className={styles.single__swiper} key={i}>
-                            <img src={item.image} alt=''/>
-                            <a href='#'>{item.info}</a>
+                            
+                            <Link href={`${item.id}`} passHref>
+                              <Image src={item.photo} alt='' width={500} height={500}/>
+                              <span>{item.title}</span>
+                            </Link>
                         </SwiperSlide>
                 )
             })}
@@ -35,5 +40,17 @@ const DetailsSwiper = () => {
         </div>
   )
 }
+
+export const getServerSideProps = async () => {
+
+  const res = await (await axios.get(`http://localhost:5000/v1/posts/public/latest_posts/`)).data;
+
+
+  return {
+      props: {
+          swipers : res.results
+      },
+  }
+};
 
 export default DetailsSwiper

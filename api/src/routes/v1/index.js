@@ -5,6 +5,7 @@ const docsRoute = require('./docs.route');
 const config = require('../../config/config');
 const postRoute = require('./post.route')
 const categoryRoute = require('./category.route')
+const viewsRoute = require('./views.route')
 
 const router = express.Router();
 
@@ -24,6 +25,10 @@ const defaultRoutes = [
   {
     path: '/categories',
     route: categoryRoute
+  },
+  {
+    path: '/views',
+    route: viewsRoute
   }
 ];
 

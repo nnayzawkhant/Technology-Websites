@@ -5,6 +5,8 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import { firstLatestDatas } from '../pages/firstLatestDatas';
 import {format} from "timeago.js";
 import axios from 'axios';
+import Link from 'next/link';
+import Image from 'next/image';
 
 
 const FirstLatest = () => {
@@ -33,16 +35,18 @@ const FirstLatest = () => {
             allPosts?.results?.slice(0, visiable).map((item, i) => {
                 return (
                     <div className={styles.firstlatest__card} key={i}>
-                        <a href={`details/${item.id}`} className={styles.first__img}><img src={item.photo}/></a>
+                        <Link href={`details/${item.id}`} className={styles.first__img} passHref><Image src={item.photo} width={1000} height={1000} alt=''/></Link>
                         <div className={styles.first__late}>
                             <div className={styles.span__doc}>
                                 <div className={styles.span__under}></div>
-                                <span className={styles.first__span}>{item.category.categoryname}</span>
+                                <Link href={`categories/${item.category?.id}`} passHref>
+                                    <span className={styles.first__span}>{item.category.categoryname}</span>
+                                </Link>
                             </div>
-                            <a href='#'><h2>{item.title}</h2></a>
+                            <Link href={`details/${item.id}`} passHref><h2>{item.title}</h2></Link>
                             <div className={styles.first__main}>
                                 <div className={styles.first__little}>
-                                    <img src={item.user?.profilePic}/>
+                                    <Image src={item.user?.profilePic} width={30} height={30} alt=''/>
                                     <span>{item.user?.name}</span>
                                     <div className={styles.first__icon}>
                                         <AccessTimeIcon fontSize='smaller'/>

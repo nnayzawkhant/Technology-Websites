@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from '../styles/Feature.module.css';
-import Link from 'next/link';
 import Week from './Week';
 import Month from './Month';
 import { popularDatas } from '../pages/popularDatas';
@@ -14,6 +13,9 @@ import { useEffect } from 'react';
 import LensIcon from '@mui/icons-material/Lens';
 import axios from 'axios';
 import {format} from "timeago.js";
+import NatureSwiper from './NatureSwiper';
+import Link from 'next/link';
+import Image from 'next/image'
 
 const Featured = () => {
   const [popular, setPopular] = useState(0);
@@ -24,30 +26,52 @@ const Featured = () => {
 
   const [posts, setPosts] = useState([]);
   const [headPosts, setHeadPosts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [categoriesPosts, setCategoriesPosts] = useState([]);
+  const [query, setQuery] = useState()
 
   const loadPosts = async () => {
-    const result = await (await axios.get('http://localhost:5000/v1/posts/public/latest_posts/?page=2&limit=6')).data;
-    console.log(result)
+    const result = await (await axios.get('http://localhost:5000/v1/posts/public/latest_posts/?sortBy=viewCounts:desc&limit=6')).data;
+    // console.log(result)
     setPosts(result)
+  }
+
+  const loadCategoriesPosts = async () => {
+    let API_URL = 'http://localhost:5000/v1/posts/public/latest_posts/'
+    if(query){
+      API_URL += `?category=${query}`
+    }
+    const result = await (await axios.get(API_URL)).data;
+    // console.log(result, 'hello')
+    setCategoriesPosts(result)
   }
 
   const headerPosts = async () => {
     const result = await (await axios.get('http://localhost:5000/v1/posts/public/latest_posts/?sortBy=_id:desc&limit=4')).data;
-    console.log(result)
+    // console.log(result)
     setHeadPosts(result)
+  }
+
+  const fetchCategories = async () => {
+    const cats = await (await axios.get(`http://localhost:5000/v1/categories/public/latest_categories/`)).data;
+    // console.log(cats)
+    setCategories(cats);
+
   }
 
   useEffect(() => {
     loadPosts()
     headerPosts()
-  }, [])
+    fetchCategories()
+    loadCategoriesPosts()
+  }, [query])
 
   const popularChecked = (index) => {
     setPopular(index)
   }
 
-  const gadgetChecked = (index) => {
-    setGadgets(index)
+  const gadgetChecked = (id) => {
+    setQuery(id)
   }
 
   const lastestChecked = (index) => {
@@ -63,115 +87,27 @@ const Featured = () => {
           headPosts?.results?.map((dat, i) => {
             return (
               <div  className={styles.blog_header_content} key={i}>
-                <img src={dat.photo} className={styles.image_ratio}/>
-                <a href="" className={styles.blog_content_overlay}>
-                    <span>{dat.category.categoryname}</span>
-                        <h3>{dat.title}</h3>
+                <Link href={`details/${dat.id}`}>
+                  <Image src={dat.photo} className={styles.image_ratio}  width="500" height="500" layout="responsive" objectFit="contain" alt=''/>
+                </Link>
+                <div className={styles.blog_content_overlay}>
+                    <Link href={`categories/${dat.category.id}`}><span>{dat.category.categoryname}</span></Link>
+                    <Link href={`details/${dat.id}`}><h3>{dat.title}</h3></Link>
                     <div className={styles.grid__papar}>
                       <p>{dat.user?.name}</p>
                       <div className={styles.doc__grid}></div>
                       <p>{format(dat.createdAt)}</p>
                     </div>
-                </a>
+                </div>
             </div>
             )
           })
         }
-        {/* <div className={styles.blog_header_content}>
-            <img src="https://cdn.pixabay.com/photo/2019/11/29/17/05/hand-4661763__480.jpg"  className={styles.image_ratio}/>
-            <a href="" className={styles.blog_content_overlay}>
-                <span>Food</span>
-                <div>
-                    <p>Magna nulla duis ullamco cillum dolor</p>
-                    
-                </div>
-            </a>
-        </div>
-        <div className={styles.blog_header_content}>
-            <img src="https://cdn.pixabay.com/photo/2019/11/29/17/05/hand-4661763__480.jpg"  className={styles.image_ratio}/>
-            <a href="" className={styles.blog_content_overlay}>
-                <span>Food</span>
-                <div>
-                    <p>Magna nulla duis ullamco cillum dolor</p>
-                    
-                </div>
-            </a>
-        </div>
-        <div className={styles.blog_header_content}>
-            <img src="https://cdn.pixabay.com/photo/2019/11/29/17/05/hand-4661763__480.jpg"  className={styles.image_ratio}/>
-            <a href="" className={styles.blog_content_overlay}>
-                <span>Food</span>
-                <div>
-                    <p>Magna nulla duis ullamco cillum dolor</p>
-                    
-                </div>
-            </a>
-        </div> */}
     </section>
-      {/* <div className={styles.grid__container}>
-        <div className={styles.item2}>
-          <a href='#'><img src='https://cdn.pixabay.com/photo/2014/11/17/20/55/girl-535251__480.jpg' alt='hello'/></a>
-          <div className={styles.grid__span}>
-            <a href='#'><span>FEATURED</span></a>
-            <a href='#'><h2>Google To Boost Android Security In Few Days</h2></a>
-            <div className={styles.grid__papar}>
-              <p>by Salman</p>
-              <div className={styles.doc__grid}></div>
-              <p>2 years ago</p>
-            </div>
-          </div>
-        </div>
-      <div className={styles.item3}>
-        <a href='#'><img src='https://cdn.pixabay.com/photo/2016/11/29/09/11/candles-1868640__480.jpg' alt='hello'/></a>
-        <div className={styles.grid__span}>
-          <a href='#'><span>FEATURED</span></a>
-          <a href='#'><h4>Google To Boost Android Security In Few Days</h4></a>
-          <div className={styles.grid__papar}>
-            <p>by Salman</p>
-            <div className={styles.doc__grid}></div>
-            <p>2 years ago</p>
-          </div>
-        </div>
-      </div>  
-      <div className={styles.item4}>
-        <a href='#'><img src='https://cdn.pixabay.com/photo/2016/11/29/05/55/adult-1867665__480.jpg' alt='hello'/></a>
-        <div className={styles.grid__span}>
-          <a href='#'><span>FEATURED</span></a>
-          <a href='#'><h4>Google To Boost Android Security In Few Days</h4></a>
-          <div className={styles.grid__papar}>
-            <p>by Salman</p>
-            <div className={styles.doc__grid}></div>
-            <p>2 years ago</p>
-          </div>
-        </div>
-      </div>
-      <div className={styles.item5}>
-        <a href='#'><img src='https://cdn.pixabay.com/photo/2016/05/24/18/49/suitcase-1412996__480.jpg' alt='hello'/></a>
-        <div className={styles.grid__span}>
-          <a href='#'><span>FEATURED</span></a>
-          <a href='#'><h4>Google To Boost Android Security In Few Days</h4></a>
-          <div className={styles.grid__papar}>
-            <p>by Salman</p>
-            <div className={styles.doc__grid}></div>
-            <p>2 years ago</p>
-          </div>
-        </div>
-      </div>
-    </div> */}
     <div className={styles.popular__wrapper}>
       <div className={styles.popular__nav}>
         <h1>POPULAR</h1>
-        <div className={styles.button__group}>
-          {
-            popularDatas.map((item, i) => {
-              return (
-                <div key={i}>
-                  <button onClick={() => popularChecked(i)}>{item.name}</button>
-                </div>
-              )
-            })
-          }
-        </div>
+      
       </div>
       <div className={styles.popular__outline}></div>
     </div>
@@ -181,9 +117,9 @@ const Featured = () => {
             posts?.results?.map((item, i) => {
                 return (
                     <div className={styles.flex__card} key={i}>
-                        <img src={item.photo}/>
+                        <Link href={`details/${item.id}`} className={styles.link_popular}><Image src={item.photo} width={1000} height={1000} alt=''/></Link>
                         <p>0{i + 1}</p>
-                        <a href='#'><p>{item.title}</p></a>
+                        <Link href={`details/${item.id}`}><p>{item.title}</p></Link>
                     </div>
                 )
             })
@@ -195,10 +131,10 @@ const Featured = () => {
         <h1>GADGETS</h1>
         <div className={styles.button__group}>
           {
-            featureSwiperDatas.map((item, i) => {
+            categories?.results?.slice(7, 10).map((item, i) => {
               return (
                 <div key={i}>
-                  <button onClick={() => gadgetChecked(i)}>{item.name}</button>
+                  <button onClick={() => gadgetChecked(item.id)}>{item.categoryname}</button>
                 </div>
               )
             })
@@ -208,9 +144,7 @@ const Featured = () => {
       <div className={styles.popular__outline}></div>
     </div>
     <div>
-      {
-        featureSwiperDatas[gadgets].element
-      }
+      <NatureSwiper categoriesPosts={categoriesPosts}/>
     </div>
     <div className={styles.latest__container}>
       <div className={styles.late__small}>
@@ -242,5 +176,18 @@ const Featured = () => {
     </>
   )
 }
+
+export const getServerSideProps = async () => {
+
+  const postResults = await (await axios.get(`http://localhost:5000/v1/posts/public/latest_posts/`)).data;
+
+
+
+  return {
+      props: {
+          postres : postResults.results,
+      },
+  }
+};
 
 export default Featured

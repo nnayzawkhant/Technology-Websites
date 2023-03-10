@@ -23,8 +23,10 @@ router
   .get(postController.getLatestPosts);
 
 router
-  .route('/public/latest_posts/:postId')
-  .get( postController.getLatestPost);
+  .route('/public/posts/:postId')
+  .get( postController.getLatestPost)
+  .patch(postController.updatePostViewCounts)
+
 
 module.exports = router;
 

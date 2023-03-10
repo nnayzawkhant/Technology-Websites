@@ -32,9 +32,8 @@ const queryPosts = async (filter, options) => {
  */
 
 const getPostById = async (id) => {
-    return Post.findById(id);
+    return Post.findById(id).populate('category').populate('user');
 };
-
 
 /**
  * Update post by id
@@ -88,9 +87,10 @@ const latestPosts = async (filter, options) => {
  */
 
 const getLatestPostById = async (id) => {
-  return Post.findById(id);
+  return Post.findById(id).populate('category').populate('user');
   // return Post.where('id', id)
 };
+
 
 module.exports = {
   createPost,
@@ -99,5 +99,5 @@ module.exports = {
   updatePostById,
   deletePostById,
   latestPosts,
-  getLatestPostById
+  getLatestPostById,
 };

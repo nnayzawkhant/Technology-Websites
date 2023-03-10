@@ -18,7 +18,7 @@ const createPost = catchAsync(async (req, res) => {
 
 
 const getPosts = catchAsync(async (req, res) => {
-    const filter = pick(req.query, ['title', 'role']);
+    const filter = pick(req.query, ['title','viewCounts', 'category']);
     let options = pick(req.query, ['sortBy', 'limit', 'page']);
     options.populate = "user,category"
     const result = await postService.queryPosts(filter, options);
@@ -53,23 +53,33 @@ const deletePost = catchAsync(async (req, res) => {
 });
 
 const getLatestPosts = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['title','', 'role']);
+  const filter = pick(req.query, ['title','viewCounts', 'category']);
   let options = pick(req.query, ['sortBy', 'limit', 'page']);
   options.populate = 'user,category'
   const result = await postService.latestPosts(filter, options);
   res.send(result);
-  // let result = await Post.find().select('category').populate('category').exec();
+  // let result = await Post.find({category: req.category}).populate('category').exec();
   // res.send(result);
 });
 
 const getLatestPost = catchAsync(async (req, res) => {
-  console.log(req)
   const post = await postService.getLatestPostById(req.params.postId);
+
   if (!post) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
   }
   res.send(post);
 });
+
+const updatePostViewCounts = catchAsync(async (req, res) => {
+  const post = await postService.getPostById(req.params.postId);
+    if (!post) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Post not found');
+    }
+  const update = await postService.updatePostById(req.params.postId, {viewCounts: post.viewCounts + 1});
+  res.send(update);
+});
+
 
 
 module.exports = {
@@ -79,7 +89,8 @@ module.exports = {
   updatePost,
   deletePost,
   getLatestPosts,
-  getLatestPost
+  getLatestPost,
+  updatePostViewCounts
 };
 
 

@@ -27,7 +27,7 @@ const Usersedits = () => {
     }, [])
 
     const updatedUser = async (id) => {
-        const upuser = await (await axiosAuthUpload.get(API_URLS + `users/${id}`)).data;
+        const upuser = await (await axiosAuthUpload().get(API_URLS + `users/${id}`)).data;
         setUsers({name: upuser.name, email: upuser.email, profilePic: upuser.profilePic, password: ''});
     }
   
@@ -53,7 +53,7 @@ const Usersedits = () => {
                 email: users.email,
                 profilePic: url,
               }
-              const resultuser = await axiosAuthUpload.patch(API_URLS + `users/${id}`, newUsers)
+              const resultuser = await axiosAuthUpload().patch(API_URLS + `users/${id}`, newUsers)
                 console.log(resultuser);
                 navigate('/admin/users/');
                 setLoading(false)

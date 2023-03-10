@@ -25,8 +25,9 @@ const postSchema = mongoose.Schema(
         ref: 'Category',
         required: false, 
     },
-    viewcounts: {
-        type : String
+    viewCounts: {
+        type : Number,
+        default: 0
     },
     // category: {
     //     type: String,

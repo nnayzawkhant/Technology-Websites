@@ -9,7 +9,7 @@ const createUser = {
       "any.required": `"email" is a required.`,
     }),
     password: Joi.string().required('password is required').custom(password),
-    name: Joi.string().alphanum().min(3).max(30).required().messages({
+    name: Joi.string().min(3).max(30).required().messages({
       "string.base": `"name" should be a type of 'text'`,
       "string.empty": `"name" cannot be an empty field`,
       "any.required": `"name" is a required.`,

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styles from '../../styles/Details.module.css'
-import DetailsSwiper from '../../components/detailsSwiper';
+// import DetailsSwiper from '../../components/detailsSwiper';
 import HomeIcon from '@mui/icons-material/Home';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -17,8 +17,12 @@ import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import RightLatest from '../../components/RightLatest';
 import axios from 'axios';
-const Details = ({posts}) => {
-  console.log(posts)
+import {format} from "timeago.js";
+import Link from 'next/link';
+import Image from 'next/image';
+import DetailsSwiper from '../../components/DetailsSwiper';
+const Details = ({posts, cat, relatedPosts}) => {
+  console.log(relatedPosts)
   const [btnGroupShown, setBtnGroupShown] = useState(false);
 
   const btnShown = () => {
@@ -26,21 +30,21 @@ const Details = ({posts}) => {
   }
   return (
     <div className={styles.details__wrapper} >
-        <DetailsSwiper/>
+        <DetailsSwiper cat={cat}/>
         <div className={styles.details__container}>
           <div className={styles.details__left}>
             <div className={styles.home__wrap}>
               <div className={styles.home__icon}>
                 <HomeIcon/>
                 <KeyboardArrowRightIcon/>
-                <span>Featured</span>
+                <span>{posts?.category?.categoryname}</span>
               </div>
-              <h1>Google To Boost Android Security In Few Days</h1>
+              <h1>{posts.title}</h1>
               <div className={styles.details__pfgroup}>
                 <div className={styles.details__profile}>
                   <span>by</span>
                   <img src={posts?.user?.profilePic}/>
-                  <span>Salman on March 06, 2021</span>
+                  <span>{posts?.user?.name} {format(posts?.user?.createdAt)}</span>
                 </div>
                 <div className={styles.details__comment}>
                   <ChatBubbleOutlineIcon fontSize='small'/>
@@ -83,10 +87,8 @@ const Details = ({posts}) => {
               </div>
             </div>
               <p dangerouslySetInnerHTML={{ __html: posts.desc }} />
-            <img src={posts.photo}/>
-            <p>
-              We have a number of different teams within our agency that specialise in different areas of business so you can be sure that you won’t receive a generic service and although we can’t boast years and years of service we can ensure you that is a good thing in this industry.
-            </p>
+            <Image src={posts.photo} width={1000} height={500} alt=''/>
+            <p dangerouslySetInnerHTML={{ __html: posts.desc }} />
             <h1>Starting a new company is easy</h1>
             <p>
             Our teams are up to date with the latest technologies, media trends and are keen to prove themselves in this industry and that’s what you want from an advertising agency, not someone who is relying on the same way of doing things that worked 10 years, 5 years or even a year ago.
@@ -119,40 +121,36 @@ const Details = ({posts}) => {
             </p>
             <div className={styles.offer__feature}>
               <LocalOfferIcon/>
-              <button>FEATURED</button>
+              <a href={`/categories/${posts?.category?.id}`}><button>{posts?.category?.categoryname}</button></a>
+              <p>{posts.viewCounts} views</p>
             </div>
             <div className={styles.history__group}>
               <span>NEXT STORY <KeyboardArrowRightIcon/></span>
-              <a href='#'>More than billion football fans attend Brazil world cup</a>
+              <Link href='#'>{posts.title}</Link>
             </div>
             <div className={styles.detailleft__profile}>
-              <img src='https://cdn.pixabay.com/photo/2015/11/26/00/14/woman-1063100__480.jpg'/>
+              <img src={posts.user.profilePic}/>
               <div className={styles.detailleft__dev}>
-                <a href='#'>Salman</a>
+                <a href='#'>{posts.user.name}</a>
                 <p>Blogger, Developer</p>
               </div>
             </div>
             <div className={styles.details__related}>
               <h2>RELATED POSTS</h2>
               <div className={styles.relate__container}>
-                <div className={styles.relate__card}>
-                  <a href='#'>
-                    <img src='https://cdn.pixabay.com/photo/2014/11/17/20/55/girl-535251__480.jpg'/>
-                  </a>
-                  <a href=''>No escaping new high tech speed cameras</a>
-                </div>
-                <div className={styles.relate__card}>
-                  <a href='#'>
-                    <img src='https://cdn.pixabay.com/photo/2016/11/29/20/22/girl-1871104__480.jpg'/>
-                  </a>
-                  <a href=''>No escaping new high tech speed cameras</a>
-                </div>
-                <div className={styles.relate__card}>
-                  <a href='#'>
-                    <img src='https://cdn.pixabay.com/photo/2014/08/08/20/55/worried-girl-413690__480.jpg'/>
-                  </a>
-                  <a href=''>No escaping new high tech speed cameras</a>
-                </div>
+                {
+                  relatedPosts?.map((item, i) => {
+                    return (
+                      <div className={styles.relate__card} key={i}>
+                        
+                          <Link href={item.id} passHref>
+                            <Image src={item.photo} alt='' width={500} height={300}/>
+                            <span>{item.title}</span>
+                          </Link>
+                      </div>
+                    )
+                  })
+                }
               </div>
             </div>
             <div>
@@ -208,24 +206,41 @@ const Details = ({posts}) => {
 };
 
 export const getServerSideProps = async ({params}) => {
-  const res = await (await axios.get(`http://localhost:5000/v1/posts/public/latest_posts/${params.id}`)).data;
+  const finalRes = await (await axios.get(`http://localhost:5000/v1/posts/public/posts/${params.id}`)).data;
 
-  let categoryId = await res.category
-  const singlePost = (await axios.get(`http://localhost:5000/v1/categories/public/latest_categories/${categoryId}`)).data
+  // let categoryId = await res.category
+  // const singlePost = (await axios.get(`http://localhost:5000/v1/categories/public/latest_categories/${categoryId}`)).data
 
-  let userId = await res.user
-  const singleUser = (await axios.get(`http://localhost:5000/v1/users/public/latest_users/${userId}`)).data
+  // let userId = await res.user
+  // const singleUser = (await axios.get(`http://localhost:5000/v1/users/public/latest_users/${userId}`)).data
    
-  let finalRes = {...res, category: singlePost, user: singleUser}
+  // let finalRes = {...res, category: singlePost, user: singleUser}
 
+  const cats = await (await axios.get(`http://localhost:5000/v1/posts/public/latest_posts/`)).data;
+
+  const relate = await (await axios.get(`http://localhost:5000/v1/posts/public/latest_posts/?limit=3`)).data;
+
+  const updateCounts = await axios.patch(`http://localhost:5000/v1/posts/public/posts/${params.id}`);
 
 
   return {
       props: {
           posts: finalRes,
+          cat : cats.results,
+          relatedPosts: relate.results
       },
   }
 };
+
+// export const getSecondServerSideProps = async () => {
+  
+
+//   return {
+//       props: {
+//           cats: res,
+//       },
+//   }
+// };
 
 export default Details;
 
